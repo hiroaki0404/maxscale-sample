@@ -1,0 +1,21 @@
+mysql:
+  build: rdb
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mysql
+
+maxscale:
+  build: maxscale
+  ports:
+    - 3306
+  links:
+    - mysql:mysql
+
+web:
+  build: web
+  ports:
+    - 8080
+  links:
+    - maxscale:mysql
+
